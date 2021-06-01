@@ -6,37 +6,37 @@
 //--------- 3D vector ----------
 
 struct vec3_t { 
-	// Components
-	float x;
-	float y;
-	float z;
+    // Components
+    float x;
+    float y;
+    float z;
 
-	//- Constructors:
-	vec3_t();
-	vec3_t( float, float, float );
-	vec3_t( float, float );
-	vec3_t( float [] );
+    //- Constructors:
+    vec3_t();
+    vec3_t( float, float, float );
+    vec3_t( float, float );
+    vec3_t( float [] );
 
-	//- Basic operations:
+    //- Basic operations:
 
-	// Addition and subtration:
-	vec3_t operator + ( const vec3_t & );
-	vec3_t operator - ( const vec3_t & );
-	vec3_t operator - ( void );
-	void operator += ( const vec3_t & );
-	void operator -= ( const vec3_t & );
+    // Addition and subtration:
+    vec3_t operator + ( const vec3_t & );
+    vec3_t operator - ( const vec3_t & );
+    vec3_t operator - ( void );
+    void operator += ( const vec3_t & );
+    void operator -= ( const vec3_t & );
 
-	// Scalar multiplication and division:
-	vec3_t operator * ( const float );
-	vec3_t operator / ( const float );
-	void operator *= ( const float );
-	void operator /= ( const float );
+    // Scalar multiplication and division:
+    vec3_t operator * ( const float );
+    vec3_t operator / ( const float );
+    void operator *= ( const float );
+    void operator /= ( const float );
 
-	// Important operations: 
-	float dot( const vec3_t );
-	vec3_t cross( const vec3_t );
-	float mag();
-	vec3_t norm();
+    // Important operations: 
+    float dot( const vec3_t );
+    vec3_t cross( const vec3_t );
+    float mag();
+    vec3_t norm();
 };
 
 // Reverse order - Scalar product

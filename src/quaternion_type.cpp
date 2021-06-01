@@ -4,34 +4,34 @@
 
 // Default to zero vector
 quat_t::quat_t() {
-	w = 1;
-	v = {0,0,0};
+    w = 1;
+    v = {0,0,0};
 }
 
 // Individual components
 quat_t::quat_t( float _w, float _x, float _y, float _z ) {
-	w = _w;
-	v = { _x, _y, _z };
+    w = _w;
+    v = { _x, _y, _z };
 }
 
 // Scalar and vector components
 quat_t::quat_t( float _w, vec3_t _v ) {
-	w = _w;
-	v = _v;
+    w = _w;
+    v = _v;
 }
 
 // Convert to vector
 quat_t::quat_t( vec3_t _v ) {
-	w = 0;
-	v = _v;  
+    w = 0;
+    v = _v;  
 }
 
 // Convert from array
 quat_t::quat_t( float arr[] ) {
-	w = arr[0];
-	v.x = arr[1];
-	v.y = arr[2];
-	v.z = arr[3];
+    w = arr[0];
+    v.x = arr[1];
+    v.y = arr[2];
+    v.z = arr[3];
 }
 
 //----------------- Basic Operations ------------------
@@ -40,213 +40,213 @@ quat_t::quat_t( float arr[] ) {
 
 // Addition
 quat_t quat_t::operator + ( const quat_t &r ) {
-	quat_t q = { w + r.w ,
-				 v + r.v };
-	return q;
+    quat_t q = { w + r.w ,
+                 v + r.v };
+    return q;
 }
 
 // Subtraction
 quat_t quat_t::operator - ( const quat_t &r ) {
-	quat_t q = { w - r.w ,
-				 v - r.v };
-	return q;
+    quat_t q = { w - r.w ,
+                 v - r.v };
+    return q;
 }
 // Negation
 quat_t quat_t::operator - ( void ) {
-	quat_t q = { -w ,
-				 -v };
-	return q;
+    quat_t q = { -w ,
+                 -v };
+    return q;
 }
 
 // Increment
 void quat_t::operator += ( const quat_t &r ) {
-	w += r.w;
-	v += r.v;
+    w += r.w;
+    v += r.v;
 }
 // Decrement 
 void quat_t::operator -= ( const quat_t &r ) {
-	w -= r.w;
-	v -= r.v;  
+    w -= r.w;
+    v -= r.v;  
 }
 
 //-- Scalar product and division:
 
 // Scalar product
 quat_t quat_t::operator * ( const float s ) {
-	quat_t q = { w * s ,
-				 v * s };
-	return q;
+    quat_t q = { w * s ,
+                 v * s };
+    return q;
 }
 
 // Scalar division
 quat_t quat_t::operator / ( const float s ) {
-	quat_t q = { w / s , 
-				 v / s };
-	return q;
+    quat_t q = { w / s , 
+                 v / s };
+    return q;
 }
 
 // Self scalar multiply
 void quat_t::operator *= ( const float s ) {
-	w *= s;
-	v *= s;   
+    w *= s;
+    v *= s;   
 }
 
 // Self scalar divide
 void quat_t::operator /= ( const float s ) {
-	w /= s;
-	v /= s;
+    w /= s;
+    v /= s;
 }
 
 //--------------- Important operations ---------------
 
 // Conjugate
 quat_t quat_t::conj() {
-	quat_t q = { w , 
-				-v };
-	return q;
+    quat_t q = { w , 
+                -v };
+    return q;
 }
 
 // Inner product
 float quat_t::inner() {
-	return w*w + v.dot(v);  
+    return w*w + v.dot(v);  
 }
 
 // Magnitude
 float quat_t::mag() {
-	return sqrt( inner() );
+    return sqrt( inner() );
 }
 
 // Normalize
 quat_t quat_t::norm() { 
-	quat_t q = { w, v };
-	return q/mag();  
+    quat_t q = { w, v };
+    return q/mag();  
 }
 
 //----- Quaternion multiplication and division -------
-	  
+      
 // Multiplication
 quat_t quat_t::operator * ( const quat_t &r ) {
-	quat_t q = { w*r.w - v.dot(r.v)           ,
-				 w*r.v + v*r.w + v.cross(r.v) };  
-	return q;
+    quat_t q = { w*r.w - v.dot(r.v)           ,
+                 w*r.v + v*r.w + v.cross(r.v) };  
+    return q;
 }
  
 // Division
 quat_t quat_t::operator / ( quat_t &r ) {
-	quat_t q = { w, v };
-	return ( q*r.conj() )/r.inner();  
+    quat_t q = { w, v };
+    return ( q*r.conj() )/r.inner();  
 }
 
 // Self multiply 
 void quat_t::operator *= ( const quat_t &r ) {
-	quat_t q = { w, v };
-	q = q*r; 
-	w = q.w;
-	v = q.v;
+    quat_t q = { w, v };
+    q = q*r; 
+    w = q.w;
+    v = q.v;
 }
 
 // Self divide
 void quat_t::operator /= ( quat_t &r ) {
-	quat_t q = { w, v };
-	q = q/r;
-	w = q.w;
-	v = q.v;
+    quat_t q = { w, v };
+    q = q/r;
+    w = q.w;
+    v = q.v;
 }
 
 //------------ Set as rotation transform -------------
 
 // Axis and angle 
 void quat_t::setRotation( const bool SMALL_ANG, vec3_t axis, float ang ) {
-	ang *= 0.5;
-	if( SMALL_ANG ) {
-		w = 1 - ang*ang;
-		v = ang * axis.norm(); 
-	} else {
-		w = cos(ang);
-		v = sin(ang) * axis.norm();
-	}
+    ang *= 0.5;
+    if( SMALL_ANG ) {
+        w = 1 - ang*ang;
+        v = ang * axis.norm(); 
+    } else {
+        w = cos(ang);
+        v = sin(ang) * axis.norm();
+    }
 }
 
 // Vector magniude is sine of angle
 void quat_t::setRotation( const bool SMALL_ANG, vec3_t u ) {
-	if( SMALL_ANG ) {
-		v = 0.5 * u;
-		w = 1 - 0.5*v.dot(v);      
-	} else {
-		float mag = u.dot(u);
-		float sine = ( 1 - sqrt(1 - mag) )*0.5;  
-		w = sqrt(1 - sine);
-		v = sqrt(sine/mag) * u;
-	}
+    if( SMALL_ANG ) {
+        v = 0.5 * u;
+        w = 1 - 0.5*v.dot(v);      
+    } else {
+        float mag = u.dot(u);
+        float sine = ( 1 - sqrt(1 - mag) )*0.5;  
+        w = sqrt(1 - sine);
+        v = sqrt(sine/mag) * u;
+    }
 }
 
 //------------ Axis vector projections ---------------
 
 vec3_t quat_t::axisX( const bool INTO_ANG ) {
-	float w_vz = w*v.z;
-	float w_vy = w*v.y;
-	//
-	if( INTO_ANG ) {
-	  w_vz = -w_vz;
-	  w_vy = -w_vy;    
-	}
-	vec3_t u = { 2*( v.x*v.x + w*w  ) - 1 , 
-				 2*( v.x*v.y + w_vz )     ,
-				 2*( v.x*v.z - w_vy )     };
-	return u;
+    float w_vz = w*v.z;
+    float w_vy = w*v.y;
+    //
+    if( INTO_ANG ) {
+      w_vz = -w_vz;
+      w_vy = -w_vy;    
+    }
+    vec3_t u = { 2*( v.x*v.x + w*w  ) - 1 , 
+                 2*( v.x*v.y + w_vz )     ,
+                 2*( v.x*v.z - w_vy )     };
+    return u;
 }
 
 vec3_t quat_t::axisY( const bool INTO_ANG ) {
-	float w_vz = w*v.z;
-	float w_vx = w*v.x;
-	//  
-	if( INTO_ANG ) {
-	  w_vz = -w_vz;
-	  w_vx = -w_vx;    
-	}
-	vec3_t u = { 2*( v.y*v.x - w_vz )     ,
-				 2*( v.y*v.y + w*w  ) - 1 , 
-				 2*( v.y*v.z + w_vx )     };              
-	return u;
+    float w_vz = w*v.z;
+    float w_vx = w*v.x;
+    //  
+    if( INTO_ANG ) {
+      w_vz = -w_vz;
+      w_vx = -w_vx;    
+    }
+    vec3_t u = { 2*( v.y*v.x - w_vz )     ,
+                 2*( v.y*v.y + w*w  ) - 1 , 
+                 2*( v.y*v.z + w_vx )     };              
+    return u;
 }
 
 vec3_t quat_t::axisZ( const bool INTO_ANG ) {
-	float w_vy = w*v.y;
-	float w_vx = w*v.x;
-	//  
-	if( INTO_ANG ) {
-	  w_vy = -w_vy;
-	  w_vx = -w_vx;    
-	}
-	vec3_t u = { 2*( v.z*v.x + w_vy )     ,
-				 2*( v.z*v.y - w_vx )     ,
-				 2*( v.z*v.z + w*w  ) - 1 };              
-	return u;
+    float w_vy = w*v.y;
+    float w_vx = w*v.x;
+    //  
+    if( INTO_ANG ) {
+      w_vy = -w_vy;
+      w_vx = -w_vx;    
+    }
+    vec3_t u = { 2*( v.z*v.x + w_vy )     ,
+                 2*( v.z*v.y - w_vx )     ,
+                 2*( v.z*v.z + w*w  ) - 1 };              
+    return u;
 }
 
 //------------------ Vector rotation ------------------
 
 // Rotate vector into angle
 vec3_t quat_t::rotate( const bool INTO_ANG, vec3_t r ) {
-	float cross = 2*w;
-	if( INTO_ANG ) {
-		cross = -cross;
-	}
-	return ( w*w - v.dot(v) )*r + cross*v.cross(r) + ( 2*v.dot(r) )*v;
+    float cross = 2*w;
+    if( INTO_ANG ) {
+        cross = -cross;
+    }
+    return ( w*w - v.dot(v) )*r + cross*v.cross(r) + ( 2*v.dot(r) )*v;
 }
 
 //----------------- Global operators -----------------
 
 // Vector multiplication - Result is quaternion
 quat_t operator * ( vec3_t &v, vec3_t &r ) {
-	quat_t q = { -v.dot(r)  ,
-			   v.cross(r) };
-	return q;
+    quat_t q = { -v.dot(r)  ,
+               v.cross(r) };
+    return q;
 }
 
 // Reverse order - Scalar product
 quat_t operator * ( const float s, quat_t &r ) {
-	quat_t q = { r.w * s ,
-			   r.v * s };
-	return q;
+    quat_t q = { r.w * s ,
+               r.v * s };
+    return q;
 }
