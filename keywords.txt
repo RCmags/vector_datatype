@@ -1,0 +1,2 @@
+vector_type	KEYWORD1
+quaternion_type	KEYWORD1
