@@ -5,8 +5,9 @@ Included are other operations such as vector dot product and cross product. Quat
 
 For more information on vector and quaternion operations, see these links:  
 
-- [How to use quaternions](http://danceswithcode.net/engineeringnotes/quaternions/quaternions.html)
+- [Quaternions and rotations](http://danceswithcode.net/engineeringnotes/quaternions/quaternions.html)
 - [Quaternion operations](http://graphics.stanford.edu/courses/cs348a-17-winter/Papers/quaternion.pdf)  
 - [Vector operations](http://emweb.unl.edu/Math/mathweb/vectors/vectors.html)
 
-<img src = "http://danceswithcode.net/engineeringnotes/quaternions/images/axis-angle.png"></img>
+<img src = "http://danceswithcode.net/engineeringnotes/quaternions/images/axis-angle.png"></img> <img src = "https://opentextbc.ca/calculusv3openstax/wp-content/uploads/sites/288/2019/08/CNX_Calc_Figure_12_02_011.jpg"></img>
+
