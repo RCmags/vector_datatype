@@ -9,6 +9,6 @@ For more information on vector and quaternion operations, see these links:
 - [Quaternion operations](http://graphics.stanford.edu/courses/cs348a-17-winter/Papers/quaternion.pdf)  
 - [Vector operations](http://emweb.unl.edu/Math/mathweb/vectors/vectors.html)
 
-<img src = "http://danceswithcode.net/engineeringnotes/quaternions/images/axis-angle.png"></img>
+<img src = "https://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/transforms/axis.gif"></img>
 <img src = "https://opentextbc.ca/calculusv3openstax/wp-content/uploads/sites/288/2019/08/CNX_Calc_Figure_12_02_011.jpg"></img>
 
