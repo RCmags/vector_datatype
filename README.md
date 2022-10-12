@@ -1,7 +1,7 @@
 # vector_datatype
 This library includes structs for 3d vectors and quaternions. Both vectors and quaternions can perform basic operations such as addition, subtraction, multiplication, division, increment, decrement, etc. Other operations include the dot product, cross product, magnitude, and normalize.  
 
-Quaternions can also be defined as unit quaternions to represent rotations and can be used to rotate and scale vectors. Vectors are compatible with quaternions, and both types are compatible with arrays. A length-3 array can be added, subtracted, etc, from a vector or a quaternion, and a length-4 array can perform the same operations with a quaternion. 
+Quaternions can also be defined as unit quaternions to represent rotations and can be used to rotate and scale vectors. Vectors are compatible with quaternions, and both types are compatible with arrays. A length-3 array can be added, subtracted, etc, from a vector or a quaternion, and a length-4 array can perform the same operations with a quaternion. See the examples for a complete list of the operations available for each type.
 
 For more information on vector and quaternion operations, see these links:  
 
