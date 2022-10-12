@@ -5,18 +5,18 @@
 #define quaternion_type_h
 
 // input labels
-#define LOCAL_FRAME		false
-#define GLOBAL_FRAME	true
+#define LOCAL_FRAME     false
+#define GLOBAL_FRAME    true
 
-#define SMALL_ANGLE		true
-#define LARGE_ANGLE		false
+#define SMALL_ANGLE     true
+#define LARGE_ANGLE     false
  
 //------- 4D Quaternion --------
 
 struct quat_t {
     // Components
-    float  w;		// scalar
-    vec3_t v;		// vector
+    float  w;       // scalar
+    vec3_t v;       // vector
 
     // 0. Constructors:
     quat_t();
@@ -26,20 +26,20 @@ struct quat_t {
     quat_t( float [] );
     
     // 1. Basic Operations:
-    	// Addition and subtraction:
+        // Addition and subtraction:
     quat_t operator + ( const quat_t & );
     quat_t operator - ( const quat_t & );
     quat_t operator - ( void );
     void operator += ( const quat_t & );
     void operator -= ( const quat_t & );
 
-    	// Scalar product and division:
+        // Scalar product and division:
     quat_t operator * ( const float );
     quat_t operator / ( const float );
     void operator *= ( const float );
     void operator /= ( const float );
 
-    	// Quaternion multiplication and division:
+        // Quaternion multiplication and division:
     quat_t operator * ( const quat_t & );
     quat_t operator / ( quat_t & );
     void operator *= ( const quat_t & );
@@ -52,24 +52,24 @@ struct quat_t {
     float mag();
 
     // 4. Rotation transform:
-    	// axis and angle 
+        // axis and angle 
     void setRotation( vec3_t, float, const bool );
     void setRotation( vec3_t, const bool );
 
-    	// vector rotation
+        // vector rotation
     vec3_t rotate( vec3_t, const bool );
 
-    	// axis projections
+        // axis projections
     vec3_t axisX( const bool );
     vec3_t axisY( const bool );
     vec3_t axisZ( const bool );
 };
 
 // 1B. Global operators:
-	// vector multiplication
+    // vector multiplication
 quat_t operator * ( vec3_t &, vec3_t & );
 
-	// reverse order scalar product
+    // reverse order scalar product
 quat_t operator * ( const float, quat_t & );
 
 #endif
