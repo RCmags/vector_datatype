@@ -5,8 +5,8 @@
 #define quaternion_type_h
 
 // input labels
-#define LOCAL_FRAME     false
-#define GLOBAL_FRAME    true
+#define LOCAL_FRAME     true
+#define GLOBAL_FRAME    false
 
 #define SMALL_ANGLE     true
 #define LARGE_ANGLE     false
