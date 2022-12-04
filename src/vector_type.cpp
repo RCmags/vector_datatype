@@ -1,13 +1,8 @@
 #include "vector_type.h"
 
 //------------------- Constructors -------------------
-  
-// Default to zero
-vec3_t::vec3_t() {
-    x = 0;
-    y = 0;
-    z = 0;  
-}
+
+vec3_t::vec3_t() {}
 
 // Specific components
 vec3_t::vec3_t( float _x, float _y, float _z ) {
@@ -104,6 +99,14 @@ void vec3_t::operator /= ( const float s ) {
     z /= s;
 }
 
+// Reverse order - Scalar product --- [Global operator] 
+vec3_t operator * ( const float s, const vec3_t &r ) {
+    vec3_t v = { r.x * s ,
+               r.y * s ,
+               r.z * s };
+    return v;
+}
+
 //--------------- Important operations ---------------
 
 // Dot product
@@ -128,14 +131,4 @@ float vec3_t::mag() {
 vec3_t vec3_t::norm() {
     vec3_t v = { x, y, z };
     return v/mag();
-}
-
-//----------------- Global operators -----------------
-
-// Reverse order - Scalar product
-vec3_t operator * ( const float s, const vec3_t &r ) {
-    vec3_t v = { r.x * s ,
-               r.y * s ,
-               r.z * s };
-    return v;
 }
