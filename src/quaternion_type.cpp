@@ -2,7 +2,11 @@
 
 //------------------- Constructors -------------------
 
-quat_t::quat_t() {}
+// Default to zero vector
+quat_t::quat_t() {
+    w = 1;
+    v = {0,0,0};
+}
 
 // Individual components
 quat_t::quat_t( float _w, float _x, float _y, float _z ) {
@@ -93,7 +97,32 @@ void quat_t::operator /= ( const float s ) {
     v /= s;
 }
 
-//-- Quaternion multiplication and division:
+//--------------- Important operations ---------------
+
+// Conjugate
+quat_t quat_t::conj() {
+    quat_t q = { w , 
+                -v };
+    return q;
+}
+
+// Inner product
+float quat_t::inner() {
+    return w*w + v.dot(v);  
+}
+
+// Magnitude
+float quat_t::mag() {
+    return sqrt( inner() );
+}
+
+// Normalize
+quat_t quat_t::norm() { 
+    quat_t q = { w, v };
+    return q/mag();  
+}
+
+//----- Quaternion multiplication and division -------
       
 // Multiplication
 quat_t quat_t::operator * ( const quat_t &r ) {
@@ -124,7 +153,89 @@ void quat_t::operator /= ( quat_t &r ) {
     v = q.v;
 }
 
-//-- Global operators:
+//------------ Set as rotation transform -------------
+
+// Axis and angle 
+void quat_t::setRotation( const bool SMALL_ANG, vec3_t axis, float ang ) {
+    ang *= 0.5;
+    if( SMALL_ANG ) {
+        w = 1 - ang*ang;
+        v = ang * axis.norm(); 
+    } else {
+        w = cos(ang);
+        v = sin(ang) * axis.norm();
+    }
+}
+
+// Vector magniude is sine of angle
+void quat_t::setRotation( const bool SMALL_ANG, vec3_t u ) {
+    if( SMALL_ANG ) {
+        v = 0.5 * u;
+        w = 1 - 0.5*v.dot(v);      
+    } else {
+        float mag = u.dot(u);
+        float sine = ( 1 - sqrt(1 - mag) )*0.5;  
+        w = sqrt(1 - sine);
+        v = sqrt(sine/mag) * u;
+    }
+}
+
+//------------ Axis vector projections ---------------
+
+vec3_t quat_t::axisX( const bool INTO_ANG ) {
+    float w_vz = w*v.z;
+    float w_vy = w*v.y;
+    //
+    if( INTO_ANG ) {
+      w_vz = -w_vz;
+      w_vy = -w_vy;    
+    }
+    vec3_t u = { 2*( v.x*v.x + w*w  ) - 1 , 
+                 2*( v.x*v.y + w_vz )     ,
+                 2*( v.x*v.z - w_vy )     };
+    return u;
+}
+
+vec3_t quat_t::axisY( const bool INTO_ANG ) {
+    float w_vz = w*v.z;
+    float w_vx = w*v.x;
+    //  
+    if( INTO_ANG ) {
+      w_vz = -w_vz;
+      w_vx = -w_vx;    
+    }
+    vec3_t u = { 2*( v.y*v.x - w_vz )     ,
+                 2*( v.y*v.y + w*w  ) - 1 , 
+                 2*( v.y*v.z + w_vx )     };              
+    return u;
+}
+
+vec3_t quat_t::axisZ( const bool INTO_ANG ) {
+    float w_vy = w*v.y;
+    float w_vx = w*v.x;
+    //  
+    if( INTO_ANG ) {
+      w_vy = -w_vy;
+      w_vx = -w_vx;    
+    }
+    vec3_t u = { 2*( v.z*v.x + w_vy )     ,
+                 2*( v.z*v.y - w_vx )     ,
+                 2*( v.z*v.z + w*w  ) - 1 };              
+    return u;
+}
+
+//------------------ Vector rotation ------------------
+
+// Rotate vector into angle
+vec3_t quat_t::rotate( const bool INTO_ANG, vec3_t r ) {
+    float cross = 2*w;
+    if( INTO_ANG ) {
+        cross = -cross;
+    }
+    return ( w*w - v.dot(v) )*r + cross*v.cross(r) + ( 2*v.dot(r) )*v;
+}
+
+//----------------- Global operators -----------------
 
 // Vector multiplication - Result is quaternion
 quat_t operator * ( vec3_t &v, vec3_t &r ) {
@@ -138,109 +249,4 @@ quat_t operator * ( const float s, quat_t &r ) {
     quat_t q = { r.w * s ,
                r.v * s };
     return q;
-}
-
-//--------------- Important operations ---------------
-
-// Conjugate
-quat_t quat_t::conj() {
-    quat_t q = { w , 
-                -v };
-    return q;
-}
-
-// Inner product
-float quat_t::inner() {
-    return w*w + v.dot(v);  
-}
-
-// Magnitude
-float quat_t::mag() {
-    return sqrt( inner() );
-}
-
-// Normalize
-quat_t quat_t::norm() { 
-    quat_t q = { w, v };
-    return q/mag();  
-}
-
-//--------------- Rotation transform -----------------
-
-// Transform as axis and angle 
-void quat_t::setRotation( vec3_t axis, float ang, const bool SMALL_ANG ) {
-    ang *= 0.5;
-    if( SMALL_ANG ) {
-        w = 1 - ang*ang;
-        v = ang * axis.norm(); 
-    } else {
-        w = cos(ang);
-        v = sin(ang) * axis.norm();
-    }
-}
-
-// Transform as vector with magnitude of sin(angle)
-void quat_t::setRotation( vec3_t u, const bool SMALL_ANG ) {
-    if( SMALL_ANG ) {
-        v = 0.5 * u;
-        w = 1 - 0.5*v.dot(v);      
-    } else {
-        float mag = u.dot(u);
-        float sine = ( 1 - sqrt(1 - mag) )*0.5;  
-        w = sqrt(1 - sine);
-        v = sqrt(sine/mag) * u;
-    }
-}
-
-// Rotate vector
-vec3_t quat_t::rotate( vec3_t r, const bool TO_GLOBAL ) {
-    float cross = 2*w;
-    if( TO_GLOBAL ) {
-        cross = -cross;
-    }
-    return ( w*w - v.dot(v) )*r + cross*v.cross(r) + ( 2*v.dot(r) )*v;
-}
-
-//-- Axis vector projections: 
-
-vec3_t quat_t::axisX( const bool TO_GLOBAL ) {
-    float w_vz = w*v.z;
-    float w_vy = w*v.y;
-    
-    if( TO_GLOBAL ) {
-      w_vz = -w_vz;
-      w_vy = -w_vy;    
-    }
-    vec3_t u = { 2*( v.x*v.x + w*w  ) - 1 , 
-                 2*( v.x*v.y + w_vz )     ,
-                 2*( v.x*v.z - w_vy )     };
-    return u;
-}
-
-vec3_t quat_t::axisY( const bool TO_GLOBAL ) {
-    float w_vz = w*v.z;
-    float w_vx = w*v.x;
-      
-    if( TO_GLOBAL ) {
-      w_vz = -w_vz;
-      w_vx = -w_vx;    
-    }
-    vec3_t u = { 2*( v.y*v.x - w_vz )     ,
-                 2*( v.y*v.y + w*w  ) - 1 , 
-                 2*( v.y*v.z + w_vx )     };              
-    return u;
-}
-
-vec3_t quat_t::axisZ( const bool TO_GLOBAL ) {
-    float w_vy = w*v.y;
-    float w_vx = w*v.x;
-      
-    if( TO_GLOBAL ) {
-      w_vy = -w_vy;
-      w_vx = -w_vx;    
-    }
-    vec3_t u = { 2*( v.z*v.x + w_vy )     ,
-                 2*( v.z*v.y - w_vx )     ,
-                 2*( v.z*v.z + w*w  ) - 1 };              
-    return u;
 }
