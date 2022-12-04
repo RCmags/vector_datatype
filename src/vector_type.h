@@ -11,34 +11,35 @@ struct vec3_t {
     float y;
     float z;
 
-    // 0. Constructors:
+    //- Constructors:
     vec3_t();
     vec3_t( float, float, float );
     vec3_t( float, float );
     vec3_t( float [] );
 
-    // 1. Basic operations:
-    	// Addition and subtration:
+    //- Basic operations:
+
+    // Addition and subtration:
     vec3_t operator + ( const vec3_t & );
     vec3_t operator - ( const vec3_t & );
     vec3_t operator - ( void );
     void operator += ( const vec3_t & );
     void operator -= ( const vec3_t & );
 
-    	// Scalar multiplication and division:
+    // Scalar multiplication and division:
     vec3_t operator * ( const float );
     vec3_t operator / ( const float );
     void operator *= ( const float );
     void operator /= ( const float );
 
-    	// Important operations: 
+    // Important operations: 
     float dot( const vec3_t );
     vec3_t cross( const vec3_t );
     float mag();
     vec3_t norm();
 };
 
-// 1B. Reverse order - Scalar product
+// Reverse order - Scalar product
 vec3_t operator * ( const float, const vec3_t & );
 
 #endif

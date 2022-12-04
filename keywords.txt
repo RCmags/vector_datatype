@@ -1,15 +1,2 @@
-# libraries
 vector_type	KEYWORD1
 quaternion_type	KEYWORD1
-
-# types
-quat_t	LITERAL1
-vec3_t	LITERAL1
-
-# constants
-GLOBAL_FRAME	LITERAL1
-LOCAL_FRAME	LITERAL1
-SMALL_ANGLE	LITERAL1
-LARGE_ANGLE	LITERAL1
-
-# NOTE: seperate keywords with single tab
