@@ -31,7 +31,11 @@ struct quat_t {
     quat_t operator - ( const quat_t & );
     quat_t operator - ( void );
     void operator += ( const quat_t & );
-    void operator -= ( const quat_t & );
+    void operator -= ( const quat_t & );    
+
+		// Element-wise multiplication
+	quat_t operator ^ ( const quat_t & );
+	void operator ^= ( const quat_t & );
 
         // Scalar product and division:
     quat_t operator * ( const float );

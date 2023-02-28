@@ -67,6 +67,21 @@ void vec3_t::operator -= ( const vec3_t &r ) {
     z -= r.z;
 } 
 
+
+//----------- Element-wise multiplication ------------
+vec3_t vec3_t::operator ^ ( const vec3_t &r ) {
+	vec3_t v = { x * r.x ,
+	             y * r.y ,
+	             z * r.z };
+	return v;
+}
+
+void vec3_t::operator ^= ( const vec3_t &r ) {
+	x *= r.x;
+	y *= r.y;
+	z *= r.z;
+}  
+
 //-------- Scalar multiplication and division --------
   
 // Scalar product

@@ -25,6 +25,10 @@ struct vec3_t {
     void operator += ( const vec3_t & );
     void operator -= ( const vec3_t & );
 
+		// Element-wise multiplication
+	vec3_t operator ^ ( const vec3_t & );
+	void operator ^= ( const vec3_t & );
+    
     	// Scalar multiplication and division:
     vec3_t operator * ( const float );
     vec3_t operator / ( const float );

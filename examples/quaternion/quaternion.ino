@@ -83,39 +83,48 @@ void setup() {
   q5 /= 2;
   printOperation( "9. Scalar self divide: ", q5 );
 
+  // Element-wise multiplication
+  quat_t q6 = q5 ^ q4;
+  printOperation( "10A. Element-wise multiply", q6 );
+
+  // self element-wise multiply
+  q6 ^= q5;
+  printOperation( "10B. Self Element-wise multiply", q6 ); 
+
+
   // 2. Quaternion multiplication and division:
   /* Quats can be multiplied together to generate a new quaternion. This can encode multiple rotations */
 
     // Multiply
   q5 = q5*q1;
-  printOperation( "10. Quaternion multiply: ", q5 );
+  printOperation( "11. Quaternion multiply: ", q5 );
 
     // Divide
   q5 = q5/q2;
-  printOperation( "11. Quaternion division: ", q5 );
+  printOperation( "12. Quaternion division: ", q5 );
   
     // Self multiply
   q5 *= q3;
-  printOperation( "12. Quaternion self multiply: ", q5 );
+  printOperation( "13. Quaternion self multiply: ", q5 );
 
     // Self divide
   q5 /= q4;  
-  printOperation( "13. Quaternion self divide: ", q5 );
+  printOperation( "14. Quaternion self divide: ", q5 );
 
   // 3. Important operations:
   
     // Conjugate
-  printOperation( "14. Conjugate: ", q5.conj() );  
+  printOperation( "15. Conjugate: ", q5.conj() );  
 
     // Normalize
-  printOperation( "15. Normalize: ", q5.norm() );
+  printOperation( "16. Normalize: ", q5.norm() );
 
     // Inner product
-  Serial.print( "16. Inner product: " );
+  Serial.print( "17. Inner product: " );
   Serial.println( q5.inner() );
 
     // Magnitude
-  Serial.print( "17. Magnitude: " );
+  Serial.print( "18. Magnitude: " );
   Serial.print( q5.mag() );
   Serial.print("\n\n");
 
@@ -123,21 +132,21 @@ void setup() {
   /* In operations between a quaternion and an array, the array will be interpreted as a quaternion */
   float arr[] = {1, 2, 3, 4};
 
-  printOperation( "18. Quaternion and array addition: "   , q5 + arr );
-  printOperation( "19. Quaternion and array subtraction: ", q5 - arr );
-  printOperation( "20. Quaternion and array multiply: "   , q5 * arr );
+  printOperation( "19. Quaternion and array addition: "   , q5 + arr );
+  printOperation( "20. Quaternion and array subtraction: ", q5 - arr );
+  printOperation( "21. Quaternion and array multiply: "   , q5 * arr );
 
   // Operations with arrays are not converted to a quaternion type. These need to be explicitly converted.
-  printOperation( "21. Array conversion (multiply): ", quat_t(arr)*3 );
-  printOperation( "22. Array conversion (divide): "  , quat_t(arr)/10 );
+  printOperation( "22. Array conversion (multiply): ", quat_t(arr)*3 );
+  printOperation( "23. Array conversion (divide): "  , quat_t(arr)/10 );
 
   //-- Compatibility with vectors
   /* Vectors will be interpreted as quaternions without a scalar value (w = 0) */
   vec3_t vec = {1, 2, 3};
 
-  printOperation( "23. Quaternion and vector addition: "   , q5 + vec );
-  printOperation( "24. Quaternion and vector subtraction: ", q5 - vec );
-  printOperation( "25. Quaternion and vector multiply; "   , q5 * vec );
+  printOperation( "24. Quaternion and vector addition: "   , q5 + vec );
+  printOperation( "25. Quaternion and vector subtraction: ", q5 - vec );
+  printOperation( "26. Quaternion and vector multiply; "   , q5 * vec );
   
   // 5. Vector rotation: a quaternion can rotate and stretch a 3D vector
 
@@ -154,18 +163,18 @@ void setup() {
       // Rotate into angle
   vec_rot = qrot.rotate(vec, GLOBAL_FRAME);            
 
-  printOperation<vec3_t>( "26. Rotate by axis and angle (Global): ", vec_rot );
+  printOperation<vec3_t>( "27. Rotate by axis and angle (Global): ", vec_rot );
 
       // Rotate away from angle
   vec_rot = qrot.rotate(vec, LOCAL_FRAME);   
   
-  printOperation<vec3_t>( "27. Rotate by axis and angle (local): ", vec_rot );
+  printOperation<vec3_t>( "28. Rotate by axis and angle (local): ", vec_rot );
 
   // B) Rotate by unit vector of magnitude sin(angle)
   qrot.setRotation( axis, LARGE_ANGLE );     
   vec_rot = qrot.rotate(vec, GLOBAL_FRAME);
     
-  printOperation<vec3_t>( "28. Rotate by unit vector: ", vec_rot );
+  printOperation<vec3_t>( "29. Rotate by unit vector: ", vec_rot );
  
   // 6. Axes projections: can choose between GLOBAL_FRAME and LOCAL_FRAME
   /* GLOBAL_FRAME projects local axis-vectors to global coordinates 
@@ -176,9 +185,9 @@ void setup() {
   vec3_t y = qrot.axisY(GLOBAL_FRAME);
   vec3_t z = qrot.axisZ(GLOBAL_FRAME);
     
-  printOperation<vec3_t>( "29. X-axis vector: ", x );    
-  printOperation<vec3_t>( "30. Y-axis vector: ", y );
-  printOperation<vec3_t>( "31. Z-axis vector: ", z );
+  printOperation<vec3_t>( "30. X-axis vector: ", x );    
+  printOperation<vec3_t>( "31. Y-axis vector: ", y );
+  printOperation<vec3_t>( "32. Z-axis vector: ", z );
 }
 
 void loop() {}

@@ -65,6 +65,18 @@ void quat_t::operator -= ( const quat_t &r ) {
     v -= r.v;  
 }
 
+//-- Element-wise multiplication:
+quat_t quat_t::operator ^ ( const quat_t &r ) {
+	quat_t q = { w * r.w , 
+	             v ^ r.v }; 
+	return q;
+} 
+
+void quat_t::operator ^= ( const quat_t &r ) {
+	w *= r.w;
+	v ^= r.v;
+} 
+
 //-- Scalar product and division:
 
 // Scalar product

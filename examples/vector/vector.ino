@@ -76,22 +76,30 @@ void setup() {
   v4 /= 20;
   printOperation( "9. Self divide: ", v4 );
 
+  // Element-wise multiplication
+  vec3_t v5 = v3 ^ v4;
+  printOperation( "10A. Element-wise multiply", v5 );
+
+    // self element-wise multiply
+  v5 ^= v4;
+  printOperation( "10B. Self Element-wise multiply", v5 ); 
+
   // 2. Important operations: 
   //  These are useful operations that are commonly encountered. They are explicitly named for clarity.
 
     // Normalize
-  printOperation( "10. Normalize vector: ", v4.norm() ); 
+  printOperation( "11. Normalize vector: ", v4.norm() ); 
 
     // Cross product
   v4 = v4.cross(v1);
-  printOperation( "11. Cross product: ", v4 );
+  printOperation( "12. Cross product: ", v4 );
   
     // Dot product
-  Serial.print( "11. Dot product: " );
+  Serial.print( "13. Dot product: " );
   Serial.println( v4.dot(v2) );
 
     // Magnitude
-  Serial.print( "12. Magnitude: " );
+  Serial.print( "14. Magnitude: " );
   Serial.print( v4.mag() );
   Serial.println("\n");
 
@@ -100,17 +108,17 @@ void setup() {
 
   float arr[] = {1, 2, 3};
   
-  printOperation( "13. Vector and array addition: "     , v4 + arr );
-  printOperation( "14. Vector and array subtraction: "  , v4 - arr );
-  printOperation( "15. Vector and array cross product: ", v4.cross(arr) );
+  printOperation( "15. Vector and array addition: "     , v4 + arr );
+  printOperation( "16. Vector and array subtraction: "  , v4 - arr );
+  printOperation( "17. Vector and array cross product: ", v4.cross(arr) );
 
-  Serial.print( "16. Dot product (array): " );
+  Serial.print( "18. Dot product (array): " );
   Serial.print( v4.dot(arr) );
   Serial.println("\n");
 
   // Operations with arrays are not converted to a vector type. These need to be explicitly converted.
-  printOperation( "17. Array conversion (multiply): ", vec3_t(arr)*3 );
-  printOperation( "18. Array conversion (divide): ", vec3_t(arr)/10 );
+  printOperation( "19. Array conversion (multiply): ", vec3_t(arr)*3 );
+  printOperation( "20. Array conversion (divide): ", vec3_t(arr)/10 );
 }
 
 void loop() {}
