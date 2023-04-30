@@ -40,6 +40,11 @@ struct vec3_t {
     vec3_t cross( const vec3_t );
     float mag();
     vec3_t norm();
+    
+    // 2. setters and getters
+    void copyArray( float [] );
+    void set(const int, float);
+	float get(const int);
 };
 
 // 1B. Reverse order - Scalar product

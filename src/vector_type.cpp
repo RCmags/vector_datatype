@@ -122,6 +122,42 @@ vec3_t operator * ( const float s, const vec3_t &r ) {
     return v;
 }
 
+//--------------- Setters and getters ----------------
+
+void vec3_t::copyArray( float s[] ) {
+	s[0] = x;
+	s[1] = y;
+	s[2] = z;
+}
+
+void vec3_t::set(const int i, float input) {
+	switch(i) {
+		case 0:
+			x = input;
+			break;
+		case 1:
+			y = input;
+			break;
+		case 2:
+			z = input;
+			break;
+	}
+}
+
+float vec3_t::get(const int i) {
+	switch(i) {
+		case 0:
+			return x;
+			break;
+		case 1:
+			return y;
+			break;
+		case 2:
+			return z;
+			break;
+	}
+}
+
 //--------------- Important operations ---------------
 
 // Dot product

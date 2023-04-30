@@ -30,6 +30,29 @@ quat_t::quat_t( float arr[] ) {
     v.z = arr[3];
 }
 
+//--------------- Setters and getters -----------------
+
+void quat_t::copyArray( float s[] ) {
+	s[0] = w;
+	v.copyArray(s + 1);
+}
+
+void quat_t::set(const int i, float input) {
+	if( i == 0 ) {
+		w = input;
+	} else {
+		v.set(i - 1, input);	
+	}
+}
+
+float quat_t::get(const int i) {
+	if( i == 0 ) {
+		return w;
+	} else {
+		return v.get(i - 1);
+	}
+}
+
 //----------------- Basic Operations ------------------
 
 //-- Addition and subtraction:

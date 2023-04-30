@@ -25,6 +25,11 @@ struct quat_t {
     quat_t( vec3_t );
     quat_t( float [] );
     
+    // 0A. Setters and getters
+    void copyArray( float [] );
+    void set(const int, float);
+	float get(const int);
+    
     // 1. Basic Operations:
         // Addition and subtraction:
     quat_t operator + ( const quat_t & );

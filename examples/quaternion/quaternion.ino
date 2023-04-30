@@ -35,11 +35,25 @@ void setup() {
   Serial.flush();
   
   //-------- Quaternions --------
+
+  // 0. Setters and getters:
   quat_t q1 = { 1, 0, 0, 0 };
   quat_t q2 = { 0, 1, 0, 0 };
   quat_t q3 = { 0, 0, 1, 0 };
   quat_t q4 = { 0, 0, 0, 1 };
+
+  // initialize with vector as array
   quat_t q5;
+  
+  for( int i = 0; i < 4; i += 1 ) {
+    q5.set(i, 2*i + 1); // (index, value)
+  }
+
+  /* access component at index using: quat_t.get(index) */
+
+  // copy vector into array
+  float arr_q[4]; q5.copyArray(arr_q);
+  printOperation( "0. Copy into array", quat_t(arr_q) );
   
   // 1. Basic operations:
   //   Quaternions can be manipulated in the same way as scalar values

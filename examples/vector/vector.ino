@@ -28,16 +28,30 @@ void setup() {
   Serial.flush();
   
   //-------- Vectors -------- 
+  
+  // 0. Setters and getters:
   vec3_t v1 = { 1, 0, 0 };
   vec3_t v2 = { 0, 1, 0 };
   vec3_t v3 = { 0, 0, 1 }; 
-  vec3_t v4;
 
+  // initialize with vector as array
+  vec3_t v4;
+  
+  for( int i = 0; i < 3; i += 1 ) {
+    v4.set(i, 2*i + 1); // (index, value)
+  }
+  
+  /* access component at index using: vec3_t.get(index) */
+
+  // copy vector into array
+  float arr_v[3]; v4.copyArray(arr_v);
+  printOperation( "0. Copy into array", vec3_t(arr_v) );
+  
   // 1. Operations: 
   //   Vectors can be manipulated in the same way as scalar values
 
   // Addition
-  v4= v1 + v2;
+  v4 = v1 + v2;
   printOperation( "1. Addition: ", v4 );
 
   // Subtraction
