@@ -153,6 +153,7 @@ float vec3_t::get(const int i) {
 			return y;
 			break;
 		case 2:
+        default:
 			return z;
 			break;
 	}
